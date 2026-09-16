@@ -69,4 +69,4 @@ jobs:
       - name: Verify Deployment
         run: |
           sleep 5
-          curl -i http://localhost:8081/api/health
+          curl -i http://localhost:8080/api/health
