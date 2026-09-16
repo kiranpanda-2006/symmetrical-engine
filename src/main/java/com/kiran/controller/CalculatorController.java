@@ -41,4 +41,8 @@ public class CalculatorController {
     public Integer multiply(int a, int b){
         return calculatorService.multiply(a,b);
     }
+    @GetMapping("/substract")
+    public Integer subtract(int a, int b){
+        return calculatorService.substract(a,b);
+    }
 }

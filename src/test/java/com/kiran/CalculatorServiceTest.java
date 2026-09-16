@@ -25,4 +25,9 @@ public class CalculatorServiceTest {
         assertEquals(6, calculatorService.multiply(3, 2));
     }
 
+    @Test
+    void shouldDivideNumber() {
+        assertEquals(5, calculatorService.devide(10, 2));
+    }
+
 }
