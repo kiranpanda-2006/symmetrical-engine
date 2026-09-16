@@ -66,7 +66,34 @@ jobs:
 
           echo $! > app.pid
 
+          echo "Application started with PID: $(cat app.pid)"
+
       - name: Verify Deployment
         run: |
-          sleep 5
-          curl -i http://localhost:8081/api/health
+          cd /home/ubuntu/spring-demo
+
+          echo "Waiting for Spring Boot application..."
+
+          for i in {1..30}; do
+            if curl -s http://localhost:8081/api/health > /dev/null; then
+              echo "Application is UP!"
+              curl -i http://localhost:8081/api/health
+              exit 0
+            fi
+
+            echo "Attempt $i/30: Application not ready yet..."
+            sleep 2
+          done
+
+          echo "Application failed to start."
+
+          echo "===== APPLICATION LOG ====="
+          cat app.log
+
+          echo "===== JAVA PROCESS ====="
+          ps -ef | grep java || true
+
+          echo "===== PORT 8081 ====="
+          ss -lntp | grep 8081 || true
+
+          exit 1
